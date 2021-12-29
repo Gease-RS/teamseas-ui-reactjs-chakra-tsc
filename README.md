@@ -14,3 +14,7 @@ https://chakra-ui.com/docs/getting-started
 ```bash
     npm install urql graphql-ws
 ```
+
+```bash
+    npm install date-fns
+```
