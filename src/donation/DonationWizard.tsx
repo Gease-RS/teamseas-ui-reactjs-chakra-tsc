@@ -1,7 +1,19 @@
-import { Box, VStack } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/layout";
 import { useState } from "react";
+import { useMutation } from "urql";
 import { CountSelection } from "./CountSelection";
+import { DonatioDetails } from "./DonationDetails";
+
+const CreateDonation = `
+    mutation Mutatio($createDonationInput: CreateDonationInput!) {
+        CreateDonation(createDonationInput: $createDonationInput) {
+            count
+            createdAt
+            id
+        }
+        
+    }
+`;
 
 interface Props {}
 
@@ -11,24 +23,44 @@ export const DonationWizard = (props: Props) => {
     count: 20,
   });
 
+  const [donationResult, createDonation] = useMutation(CreateDonation);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
   const next = (values: any = {}) => {
-    const mergeDetails = { ...donationDetails, ...values };
-    setStep(step + 1);
-    setDonationDetails(mergeDetails);
+    const mergedDetails = { ...donationDetails, ...values };
+
+    if (step === pages.length - 1) {
+      submitDonation(mergedDetails);
+    } else {
+      setStep(step + 1);
+      setDonationDetails(mergedDetails);
+    }
   };
 
-  const previous = (values: any = {}) => {
+  const previous = () => {
     setStep(step - 1);
+  };
+
+  const submitDonation = async (values: any) => {
+    await createDonation({ createDonationInput: values });
+    setShowConfirmation(true);
   };
 
   const pages = [
     <CountSelection next={next} initialCount={donationDetails.count} />,
-    <div>Page 2</div>,
+    <DonatioDetails next={next} previous={previous} />,
   ];
 
   return (
     <Box boxShadow="xl" p={8} bg="white" borderRadius="xl" minW="sm">
-      {pages[step]}
+      {showConfirmation ? (
+        <div>
+          Thank you for your donation of $
+          {donationResult?.data.CreateDonation?.count}!!
+        </div>
+      ) : (
+        pages[step]
+      )}
     </Box>
   );
 };

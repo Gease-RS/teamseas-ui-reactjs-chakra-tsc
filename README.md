@@ -18,3 +18,7 @@ https://chakra-ui.com/docs/getting-started
 ```bash
     npm install date-fns
 ```
+
+```bash
+npm install formik yup
+```
