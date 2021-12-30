@@ -5,8 +5,6 @@
  <h1>Frontend Teamseas - Reactjs - Chackra-UI - Formik</h1>
 </div>
 
-## COMANDOS
-
 Criando projeto em Reactjs utilizando template do chakra-ui
 https://chakra-ui.com/docs/getting-started
 
@@ -27,5 +25,5 @@ https://chakra-ui.com/docs/getting-started
 ```
 
 ```bash
-npm install formik yup
+    npm install formik yup
 ```
