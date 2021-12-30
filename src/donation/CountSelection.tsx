@@ -49,7 +49,7 @@ export const CountSelection = ({ initialCount, next }: Props) => {
       </Text>
       <SimpleGrid mt={5} columns={2} spacing={2} {...group}>
         {options.map((value) => {
-          const radio = getRadioProps({ value, key: value });
+          const radio = getRadioProps({ value });
           return (
             <RadioCard key={value} {...radio}>
               {value} pounds

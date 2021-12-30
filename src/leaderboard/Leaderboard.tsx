@@ -37,14 +37,14 @@ export const Leaderboard = (props: Props) => {
     },
   });
 
-  if (error) return <p>Somenthing went wrong...</p>;
+  if (error) return <p>Something went wrong...</p>;
   if (fetching || !data) return <p>Loading...</p>;
 
   return (
     <Box w="100%">
       <VStack spacing={4}>
-        <Heading as="h1" size="2x1">
-          Leaderboard
+        <Heading as="h1" size="2xl">
+          LEADERBOARD
         </Heading>
 
         <RadioGroup onChange={setOrderByField} value={field}>

@@ -2,17 +2,16 @@ import { Box } from "@chakra-ui/layout";
 import { useState } from "react";
 import { useMutation } from "urql";
 import { CountSelection } from "./CountSelection";
-import { DonatioDetails } from "./DonationDetails";
+import { DonationDetails } from "./DonationDetails";
 
 const CreateDonation = `
-    mutation Mutatio($createDonationInput: CreateDonationInput!) {
-        CreateDonation(createDonationInput: $createDonationInput) {
-            count
-            createdAt
-            id
-        }
-        
+  mutation Mutation($createDonationInput: CreateDonationInput!) {
+    createDonation(createDonationInput: $createDonationInput) {
+      count
+      createdAt
+      id
     }
+  }
 `;
 
 interface Props {}
@@ -22,9 +21,8 @@ export const DonationWizard = (props: Props) => {
   const [donationDetails, setDonationDetails] = useState({
     count: 20,
   });
-
-  const [donationResult, createDonation] = useMutation(CreateDonation);
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [donationResult, createDonation] = useMutation(CreateDonation);
 
   const next = (values: any = {}) => {
     const mergedDetails = { ...donationDetails, ...values };
@@ -48,7 +46,7 @@ export const DonationWizard = (props: Props) => {
 
   const pages = [
     <CountSelection next={next} initialCount={donationDetails.count} />,
-    <DonatioDetails next={next} previous={previous} />,
+    <DonationDetails next={next} previous={previous} />,
   ];
 
   return (
@@ -56,7 +54,7 @@ export const DonationWizard = (props: Props) => {
       {showConfirmation ? (
         <div>
           Thank you for your donation of $
-          {donationResult?.data.CreateDonation?.count}!!
+          {donationResult?.data.createDonation?.count}!!
         </div>
       ) : (
         pages[step]

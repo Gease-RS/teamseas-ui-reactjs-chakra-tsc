@@ -1,13 +1,14 @@
-import { Badge, Box, Flex, Text } from "@chakra-ui/layout";
 import { Avatar } from "@chakra-ui/avatar";
+import { Badge, Flex, Text } from "@chakra-ui/layout";
+import { Box } from "@chakra-ui/react";
 import { Donation } from "../types";
 import formatDate from "../utils/formatDate";
 
-interface DonationProps {
+interface Props {
   donation: Donation;
 }
 
-export const LeaderboardItem = ({ donation }: DonationProps) => {
+export const LeaderboardItem = ({ donation }: Props) => {
   return (
     <Flex
       boxShadow="md"
@@ -19,8 +20,8 @@ export const LeaderboardItem = ({ donation }: DonationProps) => {
     >
       <Avatar size="lg" />
       <Box flex="1" ml={4}>
-        <Flex flex="1" justifyContent="space-between" h="100%">
-          <Flex flexDirection="column" textAlign="left">
+        <Flex justifyContent="space-between" h="100%">
+          <Flex flexDirection="column" justifyContent="center" textAlign="left">
             <Text
               fontWeight="bold"
               color="blue.500"
@@ -44,7 +45,7 @@ export const LeaderboardItem = ({ donation }: DonationProps) => {
                 borderRadius="full"
                 textTransform="lowercase"
                 py={1}
-                px={8}
+                px={3}
                 as="div"
               >
                 {donation.count.toLocaleString()} pounds

@@ -1,13 +1,15 @@
-import { Heading, VStack } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/react";
-import { Form, Formik, yupToFormErrors } from "formik";
+import { VStack, Button, Heading } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 import { InputField } from "../form/InputField";
 import { TextareaField } from "../form/TextAreaField";
 import * as yup from "yup";
 
 const detailsSchema = yup.object().shape({
   displayName: yup.string().required("Please enter a display name"),
-  email: yup.string().email().required("Please enter a display email"),
+  email: yup
+    .string()
+    .email("Please enter a valid email")
+    .required("Please enter an email"),
   mobile: yup.string().nullable(),
   team: yup.string().nullable(),
   message: yup.string().nullable(),
@@ -18,10 +20,11 @@ interface Props {
   previous: () => void;
 }
 
-export const DonatioDetails = ({ next, previous }: Props) => {
+export const DonationDetails = ({ next, previous }: Props) => {
   const submit = (values: any) => {
     next(values);
   };
+
   return (
     <Formik
       initialValues={{
@@ -43,7 +46,7 @@ export const DonatioDetails = ({ next, previous }: Props) => {
             <InputField
               label="Display Name"
               name="displayName"
-              placeholder="Display name"
+              placeholder="Display Name"
             />
 
             <InputField
@@ -55,8 +58,9 @@ export const DonatioDetails = ({ next, previous }: Props) => {
             <InputField
               label="Mobile Phone"
               name="mobile"
-              placeholder="mobile"
+              placeholder="Mobile Phone"
             />
+
             <InputField label="Team" name="team" placeholder="Team name" />
 
             <TextareaField
@@ -64,7 +68,10 @@ export const DonatioDetails = ({ next, previous }: Props) => {
               name="message"
               placeholder="My #TeamSeas message is..."
             />
-            <VStack>
+
+            <hr />
+
+            <VStack spacing={2}>
               <Button
                 isFullWidth
                 colorScheme="orange"
